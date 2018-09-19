@@ -32,18 +32,23 @@ def sample_box(node, x_bounds, y_bounds, pixel_step, frame = None):
 box = nuke.selectedNode()['bbox']
 samples = sample_box(  nuke.selectedNode(), (box.x() , box.r()) , (box.y() , box.t()), 1)
 
-sample_array = np.array([v for n,v in samples.items()]).transpose()
+sample_array = np.array([v for n,v in samples.items()])
 
-print np.mean(sample_array, axis=0)
+mean = np.mean(sample_array, axis=0)
 
-M = np.cov(sample_array)
+#sample_array = np.array([np.array(v) - mean for n,v in samples.items()])
+
+M = np.cov(sample_array.transpose())
 
 print sample_array.shape
 
-e, v = la.eig(M)
+e, v = la.eigh(M)
+
+print v
+
 idx = np.argsort(e)[::-1]
 e = e[idx]
-e = np.real_if_close(e)
+#e = np.real_if_close(e)
 v = v[:, idx]
 
 print M
