@@ -13,16 +13,16 @@ def sample_box(node, x_bounds, y_bounds, pixel_step, frame = None):
 
   #set up progress
   t = nuke.ProgressTask('Sampling...') 
+  
+  #build dictionary (just convenient if we want to look up positions later) of samples
+  samples = dict()
+
   for y in xrange( int(y_bounds[0]) , int(y_bounds[1]) , pixel_step ):
 
     if t.isCancelled():
       return
     t.setProgress(int(y/int(y_bounds[1])*100))
 
-
-    samples = dict()
-
-    #build dictionary (just convenient if we want to look up positions later) of samples
     for x in xrange( int(x_bounds[0]) , int(x_bounds[1]) , pixel_step ):
       samples[(x,y)] = [node.sample(c,x,y,frame) for c in ['r','g','b']] 
 
