@@ -1,0 +1,200 @@
+set cut_paste_input [stack 0]
+version 11.1 v2
+push $cut_paste_input
+Radial {
+ area {-269 -755 3237 2905}
+ name Radial1
+ selected true
+ xpos 875
+ ypos 2507
+}
+CheckerBoard2 {
+ inputs 0
+ name CheckerBoard1
+ selected true
+ xpos 737
+ ypos 2391
+}
+Group {
+ inputs 2
+ name iAnything_in
+ selected true
+ xpos 737
+ ypos 2561
+ addUserKnob {20 User}
+ addUserKnob {41 divisions T SubframeWipe.divisions}
+}
+ Input {
+  inputs 0
+  name controlmask
+  xpos 579
+  ypos 422
+  number 1
+ }
+ Group {
+  name SubframeWipe
+  xpos 579
+  ypos 527
+  addUserKnob {20 User}
+  addUserKnob {7 divisions R 0 10}
+  divisions {{parent.parent.iAnything_out.TimeBlur1.divisions}}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 579
+   ypos 487
+  }
+  Group {
+   name LumBandPulse
+   help "Sets a band of luminance to white depending on the pulse center.\nif used with a ramp, creates a travelling pulse.\nIf used with a radial, crates an outward travelling pulse."
+   xpos 579
+   ypos 538
+   addUserKnob {20 User}
+   addUserKnob {7 pulsewidth l "pulse width"}
+   pulsewidth {{1/(parent.divisions-1) i}}
+   addUserKnob {7 falloff}
+   falloff {{pulsewidth/8 i}}
+   addUserKnob {41 p l "pulse center" T PulseCenter.p}
+  }
+   NoOp {
+    inputs 0
+    name PulseCenter
+    xpos 349
+    ypos 505
+    addUserKnob {20 User}
+    addUserKnob {7 p}
+    p {{t%1/(1-1/parent.parent.divisions)}}
+   }
+   Input {
+    inputs 0
+    name Input1
+    xpos 579
+    ypos 455
+   }
+   Dot {
+    name Dot35
+    xpos 613
+    ypos 531
+   }
+set N514a7500 [stack 0]
+   Grade {
+    channels rgba
+    blackpoint {{parent.PulseCenter.p+parent.pulsewidth/2-parent.falloff/2}}
+    whitepoint {{parent.PulseCenter.p+parent.pulsewidth/2+parent.falloff/2}}
+    black_clamp false
+    name Grade15
+    xpos 469
+    ypos 527
+   }
+   Invert {
+    name Invert1
+    xpos 469
+    ypos 550
+   }
+push $N514a7500
+   Grade {
+    channels rgba
+    blackpoint {{parent.PulseCenter.p-parent.pulsewidth/2-parent.falloff/2}}
+    whitepoint {{parent.PulseCenter.p-parent.pulsewidth/2+parent.falloff/2}}
+    black_clamp false
+    name Grade1
+    xpos 579
+    ypos 588
+   }
+   Merge2 {
+    inputs 2
+    operation multiply
+    name Merge1
+    xpos 469
+    ypos 588
+   }
+   Output {
+    name Output1
+    xpos 469
+    ypos 651
+   }
+  end_group
+  Output {
+   name Output1
+   xpos 579
+   ypos 627
+  }
+ end_group
+ Input {
+  inputs 0
+  name Input1
+  xpos 394
+  ypos 384
+ }
+ NoTimeBlur {
+  name NoTimeBlur1
+  xpos 394
+  ypos 454
+ }
+add_layer {matte matte.red matte.green matte.blue matte.alpha}
+ Shuffle {
+  red white
+  green white
+  blue white
+  alpha white
+  out matte
+  name Shuffle2
+  xpos 394
+  ypos 492
+ }
+ Multiply {
+  inputs 1+1
+  value 0
+  invert_mask true
+  name Multiply1
+  xpos 394
+  ypos 521
+ }
+ Output {
+  name Output1
+  xpos 394
+  ypos 621
+ }
+end_group
+Blur {
+ size {{curve(lerp(0,1001,1,1040,t%1)) x1001 0 x1040 100}}
+ name Blur2
+ selected true
+ xpos 737
+ ypos 2606
+}
+Group {
+ name iAnything_out
+ selected true
+ xpos 737
+ ypos 2664
+ addUserKnob {20 User}
+ addUserKnob {41 divisions T TimeBlur1.divisions}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 579
+  ypos 487
+ }
+ TimeBlur {
+  shutter 1
+  shutteroffset start
+  shuttercustomoffset 0
+  name TimeBlur1
+  xpos 579
+  ypos 527
+ }
+ Unpremult {
+  alpha matte.alpha
+  name Unpremult1
+  xpos 579
+  ypos 553
+ }
+ Output {
+  name Output1
+  xpos 579
+  ypos 653
+ }
+end_group
