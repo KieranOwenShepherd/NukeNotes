@@ -1,3 +1,12 @@
+# For fitting a elipsoid to points 
+# particularly useful for fitting a plane in 3d space, with an axis pointing in the direction of most variance
+
+# for a keying applications 
+# - this should be able to determine areas of transition vs areas mostly centered around a single point
+# - should be able to determine if an area can be suitably represented as a combination of three values
+# - get a statistical representation of screen colors
+
+
 try:
     import numpy as np
 except ImportError:
