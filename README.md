@@ -6,7 +6,7 @@ when moving from one studio to another
 leaving developed code behind
 
 With societies 'protections'
-forcing ownership endowed
+forcing ownership endowed;
 taking notes, surely this
 is reasonably still allowed.
 
