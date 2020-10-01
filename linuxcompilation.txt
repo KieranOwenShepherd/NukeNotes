@@ -1,0 +1,7 @@
+Finally figured out how to compile nuke C++ plugins
+
+gcc -shared -std=c++11 -pthread -I<nuke include> -o <name>.so -fPIC <file>.cpp
+
+-Wno-deprecated turns off deprecated warnings
+
+the pthread enables the threading library... I'm not sure if this is needed either
