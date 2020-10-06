@@ -1,7 +1,7 @@
 # NukeNotes
 
 The particular nuances of nuke
-are a chore to call to mind
+are a chore to call to mind,
 the nature of relocation;
 all progress left behind
 
