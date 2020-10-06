@@ -1,13 +1,13 @@
 # NukeNotes
 
 The particular nuances of nuke
-are difficult to call to mind
-when moving from one studio to another
-leaving developed code behind
+are a chore to call to mind
+the nature of relocation;
+all progress left behind
 
-With societies 'protections'
-forcing ownership endowed;
-taking notes, surely this
-is reasonably still allowed.
+societies protections
+appropriate ownership endowed;
+taking notes, in fairness 
+this mercy could be allowed
 
 tldr: notes and snippets about how to do various things in nuke.
